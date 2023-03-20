@@ -8,7 +8,8 @@ module.exports = {
       colors: {
         pBlue: "#2B3467",
         pLBlue: "#BAD7E9",
-        pRed: "#EB455F"
+        pRed: "#EB455F",
+        pCreme: "#FCFFE7"
       }
     },
   },

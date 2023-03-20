@@ -9,7 +9,7 @@ function Home() {
   return (
     <div className="h-screen flex justify-around items-center text-center">
       <Link
-        to="/"
+        to="/teacher-auth"
         className="text-white bg-pBlue p-4 rounded-lg transition-all hover:scale-105"
       >
         <div className="flex gap-4">
@@ -19,7 +19,7 @@ function Home() {
         <h2 className="text-3xl font-semibold mt-8">Teacher</h2>
       </Link>
       <Link
-        to="/"
+        to="/student-auth"
         className="text-white bg-pBlue p-4 rounded-lg transition-all hover:scale-105"
       >
         <div className="flex gap-4">
