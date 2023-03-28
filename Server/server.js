@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors"
 import mongoose from "mongoose"
 import userRoutes from "./routes/user.js"
+import classRoutes from "./routes/class.js"
 
 
 
@@ -11,6 +12,7 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }))
 app.use(cors({ origin: "http://localhost:3000" }))
 
 app.use("/user", userRoutes)
+app.use("/class", classRoutes)
 
 app.get("/", (req, res) => {
     res.send("Student Progress Tracker API")

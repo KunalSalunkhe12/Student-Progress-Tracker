@@ -4,7 +4,7 @@ import { teacherSignup, teacherLogin } from "../controllers/teacher.js"
 
 const router = express.Router()
 
-router.post('/teacherSignup', teacherSignup)
-router.post('/teacherLogin', teacherLogin)
+router.post('/teacher-signup', teacherSignup)
+router.post('/teacher-login', teacherLogin)
 
 export default router

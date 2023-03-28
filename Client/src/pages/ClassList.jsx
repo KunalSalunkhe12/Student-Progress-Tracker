@@ -1,20 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ClassBox from "../components/ClassBox";
 import Dashboard from "../components/Dashboard";
+import jwt from "jwt-decode";
+import { API_ENDPOINT } from "../constants";
 
 function ClassList() {
+  const Teacher = jwt(localStorage.getItem("user"));
+  const navigate = useNavigate();
+
+  const [allClassData, setAllClassData] = useState();
+
+  //checks authentication
+  useEffect(() => {
+    if (!jwt(localStorage.getItem("user"))) {
+      localStorage.removeItem("token");
+      navigate("/teacher-auth");
+    }
+  }, [Teacher, navigate]);
+
+  //Gets all Classes from database
+  useEffect(() => {
+    const getAllClasses = async () => {
+      try {
+        const response = await fetch(`${API_ENDPOINT}class/get-all-class`, {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+          },
+        });
+
+        const classes = await response.json();
+
+        if (classes) setAllClassData(classes);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getAllClasses();
+  }, []);
+
   return (
-    <div className="flex">
-      <Dashboard />
-      <div className="flex-1">
-        <div className="grid grid-cols-3 gap-4 pt-24 px-8">
-          <ClassBox />
-          <ClassBox />
-          <ClassBox />
-          <ClassBox />
+    Teacher && (
+      <>
+        <div className="flex">
+          <Dashboard name={Teacher.name} />
+          <div className="flex-1">
+            <div className="grid grid-cols-3 gap-4 pt-24 px-8">
+              {allClassData ? (
+                allClassData.map((classData) => {
+                  return <ClassBox key={classData._id} classData={classData} />;
+                })
+              ) : (
+                <h2 className="text-center text-2xl font-bold">
+                  Please Add a Class First
+                </h2>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </>
+    )
   );
 }
 

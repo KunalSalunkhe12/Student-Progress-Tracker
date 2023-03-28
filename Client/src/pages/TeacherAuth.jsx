@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_ENDPOINT } from "../constants";
 
 function TeacherAuth() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function TeacherAuth() {
     }
 
     if (isSignUp) {
-      const response = await fetch("http://localhost:5000/user/teacherSignup", {
+      const response = await fetch(`${API_ENDPOINT}user/teacher-signup`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -39,9 +40,13 @@ function TeacherAuth() {
       });
 
       const data = await response.json();
-      console.log(data);
+
+      if (data.message === "ok") {
+        alert("Registration successful");
+        setIsSignUp(false);
+      }
     } else {
-      const response = await fetch("http://localhost:5000/user/teacherLogin", {
+      const response = await fetch(`${API_ENDPOINT}user/teacher-login`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -53,10 +58,10 @@ function TeacherAuth() {
       });
 
       const data = await response.json();
-      console.log(data);
 
       if (data.teacher) {
         alert("Login successful");
+        localStorage.setItem("user", data.teacher);
         navigate("/teacher-classes");
       } else {
         alert("Incorrect email or password");

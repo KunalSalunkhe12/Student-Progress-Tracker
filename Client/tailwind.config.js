@@ -9,7 +9,8 @@ module.exports = {
         pBlue: "#2B3467",
         pLBlue: "#BAD7E9",
         pRed: "#EB455F",
-        pCreme: "#FCFFE7"
+        pCreme: "#FCFFE7",
+        pYellow: "#FEDB39"
       }
     },
   },
