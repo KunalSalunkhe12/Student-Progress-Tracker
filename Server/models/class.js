@@ -12,6 +12,23 @@ const classSchema = new mongoose.Schema({
     year: {
         type: Number,
         required: true
+    },
+    subject: {
+        subject1: {
+            type: String, required: true
+        },
+        subject2: {
+            type: String, required: true
+        },
+        subject3: {
+            type: String, required: true
+        },
+        subject4: {
+            type: String, required: true
+        },
+        subject5: {
+            type: String, required: true
+        }
     }
 }, { collection: 'class-data' });
 

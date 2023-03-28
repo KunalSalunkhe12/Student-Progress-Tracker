@@ -20,25 +20,31 @@ export const teacherSignup = async (req, res) => {
 
 export const teacherLogin = async (req, res) => {
 
-    const teacher = await Teacher.findOne({
-        email: req.body.email,
-    })
+    try {
+        const teacher = await Teacher.findOne({
+            email: req.body.email,
+        })
 
+        if (!teacher) {
+            return res.json({ status: 'error', message: 'Invalid Login Check your Email' })
+        }
 
-    if (!teacher) {
-        res.json({ status: 'error', message: 'Invalid Login' })
-    }
+        const isValidPassword = await bcrypt.compare(req.body.password, teacher.password)
 
-    const isValidPassword = await bcrypt.compare(req.body.password, teacher.password)
+        if (!isValidPassword) {
+            return res.json({ message: 'Wrong Password', teacher: false })
+        }
 
-    if (isValidPassword) {
         const token = jwt.sign({
             name: teacher.name,
             email: teacher.email
         }, 'secret123')
 
-        res.json({ message: 'ok', teacher: token })
-    } else {
-        res.json({ message: 'error', teacher: 'false' })
+        res.json({ message: 'Login Successful', teacher: token })
+
+    } catch (err) {
+        console.log(err)
+        res.json({ status: 'error', message: 'Something went wrong' })
     }
+
 }

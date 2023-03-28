@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ClassBox from "../components/ClassBox";
 import Dashboard from "../components/Dashboard";
-import jwt from "jwt-decode";
 import { API_ENDPOINT } from "../constants";
+import jwt from "jwt-decode";
 
 function ClassList() {
   const Teacher = jwt(localStorage.getItem("user"));
   const navigate = useNavigate();
 
-  const [allClassData, setAllClassData] = useState();
+  const [allClassData, setAllClassData] = useState([]);
 
   //checks authentication
   useEffect(() => {
@@ -48,9 +49,16 @@ function ClassList() {
           <Dashboard name={Teacher.name} />
           <div className="flex-1">
             <div className="grid grid-cols-3 gap-4 pt-24 px-8">
-              {allClassData ? (
+              {allClassData.length !== 0 ? (
                 allClassData.map((classData) => {
-                  return <ClassBox key={classData._id} classData={classData} />;
+                  return (
+                    <Link
+                      key={classData._id}
+                      to={`/teacher-classes/${classData._id}`}
+                    >
+                      <ClassBox key={classData._id} classData={classData} />
+                    </Link>
+                  );
                 })
               ) : (
                 <h2 className="text-center text-2xl font-bold">

@@ -10,11 +10,22 @@ const AddClass = () => {
   const [className, setClassName] = useState("");
   const [branch, setBranch] = useState("");
   const [year, setYear] = useState("");
+  const [subject, setSubject] = useState({});
 
   const navigate = useNavigate();
 
+  const handleSubjectChange = (event) => {
+    const { name, value } = event.target;
+    setSubject((prevMarks) => ({
+      ...prevMarks,
+      [name]: value.toUpperCase(),
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log({ className, branch, year, subject });
 
     const response = await fetch(`${API_ENDPOINT}class/add-class`, {
       method: "POST",
@@ -25,6 +36,7 @@ const AddClass = () => {
         className,
         branch,
         year,
+        subject,
       }),
     });
 
@@ -39,15 +51,17 @@ const AddClass = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex ">
       <Dashboard name={Teacher.name} />
       <form
-        className="flex flex-col flex-1 justify-center items-center py-4"
+        className="flex flex-col flex-1 justify-center items-center py-20"
         onSubmit={handleSubmit}
       >
-        <h1 className="text-3xl text-pBlue font-bold mb-4">Add Your Class</h1>
-        <div className="bg-pRed p-6 rounded-md">
-          <div className="text-2xl font-semibold text-white gap-2 flex flex-col">
+        <h1 className="text-3xl text-pBlue font-bold mb-4">
+          Add Class Details
+        </h1>
+        <div className="bg-pRed p-6 rounded-md w-1/2">
+          <div className="text-xl font-semibold text-white gap-2 flex flex-col">
             <label htmlFor="name">Class:</label>
             <input
               className="p-1 text-black outline-pBlue rounded-sm"
@@ -57,7 +71,7 @@ const AddClass = () => {
               onChange={(e) => setClassName(e.target.value.toUpperCase())}
             />
           </div>
-          <div className="text-2xl font-semibold text-white gap-2 mt-4 flex flex-col">
+          <div className="text-xl font-semibold text-white gap-2 mt-4 flex flex-col">
             <label htmlFor="branch">Branch:</label>
             <input
               className="p-1 text-black outline-pBlue rounded-sm"
@@ -67,7 +81,7 @@ const AddClass = () => {
               onChange={(e) => setBranch(e.target.value.toUpperCase())}
             />
           </div>
-          <div className="text-2xl font-semibold text-white gap-2 mt-4 flex flex-col">
+          <div className="text-xl font-semibold text-white gap-2 mt-4 flex flex-col">
             <label htmlFor="year">Year:</label>
             <input
               className="p-1 text-black outline-pBlue rounded-sm"
@@ -78,8 +92,68 @@ const AddClass = () => {
             />
           </div>
         </div>
+        <h2 className="text-3xl text-pBlue font-bold mb-4">
+          Add Class Subjects
+        </h2>
+        <div className="bg-pRed p-6 rounded-md w-1/2">
+          <div className="text-xl font-semibold text-white gap-2 mt-4 flex flex-col">
+            <label htmlFor="marks-subject1">Subject 1:</label>
+            <input
+              className="p-1 text-black outline-pBlue rounded-sm"
+              type="text"
+              name="subject1"
+              value={subject.subject1 || ""}
+              onChange={handleSubjectChange}
+              required
+            />
+          </div>
+          <div className="text-xl font-semibold text-white gap-2 mt-4 flex flex-col">
+            <label htmlFor="marks-subject1">Subject 2:</label>
+            <input
+              className="p-1 text-black outline-pBlue rounded-sm"
+              type="text"
+              name="subject2"
+              value={subject.subject2 || ""}
+              onChange={handleSubjectChange}
+              required
+            />
+          </div>
+          <div className="text-xl font-semibold text-white gap-2 mt-4 flex flex-col">
+            <label htmlFor="marks-subject1">Subject 3:</label>
+            <input
+              className="p-1 text-black outline-pBlue rounded-sm"
+              type="text"
+              name="subject3"
+              value={subject.subject3 || ""}
+              onChange={handleSubjectChange}
+              required
+            />
+          </div>
+          <div className="text-xl font-semibold text-white gap-2 mt-4 flex flex-col">
+            <label htmlFor="marks-subject1">Subject 4:</label>
+            <input
+              className="p-1 text-black outline-pBlue rounded-sm"
+              type="text"
+              name="subject4"
+              value={subject.subject4 || ""}
+              onChange={handleSubjectChange}
+              required
+            />
+          </div>
+          <div className="text-xl font-semibold text-white gap-2 mt-4 flex flex-col">
+            <label htmlFor="marks-subject1">Subject 5:</label>
+            <input
+              className="p-1 text-black outline-pBlue rounded-sm"
+              type="text"
+              name="subject5"
+              value={subject.subject5 || ""}
+              onChange={handleSubjectChange}
+              required
+            />
+          </div>
+        </div>
         <button
-          className="mt-4 p-2 text-xl bg-pBlue text-white rounded-md "
+          className="mt-4 p-2 text-xl bg-pBlue text-white rounded-md duration-100 hover:scale-105 w-1/2"
           type="submit"
         >
           Add Class

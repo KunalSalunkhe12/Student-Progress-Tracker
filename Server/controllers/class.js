@@ -1,8 +1,7 @@
 import Class from "../models/class.js";
 
 export const addClass = async (req, res) => {
-    const { className, branch, year } = req.body;
-    console.log(className, branch, year)
+    const { className, branch, year, subject } = req.body;
 
     try {
         const existingClass = await Class.findOne({ className, branch, year });
@@ -14,7 +13,8 @@ export const addClass = async (req, res) => {
         const newClass = new Class({
             className,
             branch,
-            year
+            year,
+            subject
         });
 
         const savedClass = await newClass.save();

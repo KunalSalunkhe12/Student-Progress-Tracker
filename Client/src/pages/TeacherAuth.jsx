@@ -58,13 +58,12 @@ function TeacherAuth() {
       });
 
       const data = await response.json();
-
       if (data.teacher) {
-        alert("Login successful");
+        alert(data.message);
         localStorage.setItem("user", data.teacher);
         navigate("/teacher-classes");
       } else {
-        alert("Incorrect email or password");
+        alert(data.message);
       }
     }
   };
