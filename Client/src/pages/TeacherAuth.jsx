@@ -71,7 +71,7 @@ function TeacherAuth() {
   };
 
   return (
-    <div className="w-screen min-h-screen flex justify-center items-center flex-col p-3">
+    <div className="w-screen min-h-screen flex justify-center items-center flex-col p-3 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
       <form
         onSubmit={handleSubmit}
         className="w-[90%] md:w-1/2 lg:w-1/3 p-4 text-white bg-pBlue rounded-lg flex flex-col gap-4"

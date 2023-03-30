@@ -9,7 +9,7 @@ function StudentPage() {
   return (
     <div className="flex">
       <Dashboard name={Teacher.name} />
-      <div className="flex-1 flex justify-center items-center">
+      <div className="flex-1">
         <StudentProfile />
       </div>
     </div>

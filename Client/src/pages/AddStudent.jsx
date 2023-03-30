@@ -3,6 +3,9 @@ import { API_ENDPOINT } from "../constants";
 import { useNavigate } from "react-router-dom";
 import Dashboard from "../components/Dashboard";
 import jwt from "jwt-decode";
+import { MdGroupAdd } from "react-icons/md";
+import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
+import { MdOutlineDisabledByDefault } from "react-icons/md";
 
 function AddStudent() {
   const Teacher = jwt(localStorage.getItem("user"));
@@ -79,8 +82,12 @@ function AddStudent() {
       });
 
       const student = await response.json();
+
       alert(student.message);
-      navigate(`/teacher-classes/${selectedClass._id}`);
+
+      if (student.savedStudent) {
+        navigate(`/teacher-classes/${selectedClass._id}`);
+      }
     } catch (error) {
       alert("Please Select Class and Defaulter");
       console.log(error);
@@ -91,14 +98,15 @@ function AddStudent() {
     <div className="flex">
       <Dashboard name={Teacher.name} />
       <div className="flex-1 flex justify-center items-center flex-col py-20">
-        <h1 className="text-3xl font-bold text-pBlue mb-4">
+        <h1 className="text-2xl font-bold text-pBlue mb-4 flex items-center gap-2">
+          <MdGroupAdd />
           Add Student Details
         </h1>
         <form
           className="flex flex-col text-xl font-semibold text-white w-1/2"
           onSubmit={handleSubmit}
         >
-          <div className="bg-pRed p-6 rounded-md flex flex-col gap-4">
+          <div className="bg-pRed p-6 rounded-md flex flex-col gap-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
             <div className="flex flex-col gap-2">
               <label htmlFor="name">Name:</label>
               <input
@@ -124,7 +132,7 @@ function AddStudent() {
             <div className="flex flex-col gap-2">
               <label htmlFor="studentClass">Class:</label>
               <select
-                className="text-black"
+                className="text-black p-1 rounded-sm"
                 id="studentClass"
                 value={studentClass}
                 onChange={(e) => setStudentClass(e.target.value)}
@@ -140,10 +148,11 @@ function AddStudent() {
               </select>
             </div>
           </div>
-          <h2 className="text-3xl font-bold text-pBlue mb-4 text-center mt-4">
+          <h2 className="text-2xl font-bold text-pBlue my-4 flex items-center justify-center gap-2">
+            <BsFileEarmarkSpreadsheet />
             Add Student Marks
           </h2>
-          <div className="bg-pRed p-6 rounded-md flex flex-col gap-4">
+          <div className="bg-pRed p-6 rounded-md flex flex-col gap-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
             <div className="flex flex-col gap-2">
               <label htmlFor="marks-subject1">
                 {selectedClass
@@ -246,14 +255,15 @@ function AddStudent() {
               />
             </div>
           </div>
-          <h2 className="text-3xl font-bold text-pBlue mb-4 text-center mt-4">
+          <h2 className="text-2xl font-bold text-pBlue my-4 flex items-center gap-2 justify-center">
+            <MdOutlineDisabledByDefault />
             Add Defaulter Status
           </h2>
-          <div className="bg-pRed p-6 rounded-md flex flex-col gap-4">
+          <div className="bg-pRed p-6 rounded-md flex flex-col gap-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
             <div className="flex flex-col gap-2">
               <label htmlFor="defaulter">Defaulter:</label>
               <select
-                className="text-black"
+                className="text-black p-1 rounded-sm"
                 id="defaulter"
                 value={defaulter}
                 onChange={(e) => setDefaulter(e.target.value)}
@@ -266,7 +276,7 @@ function AddStudent() {
           </div>
 
           <button
-            className="mt-4 p-2 text-xl bg-pBlue text-white rounded-md duration-100 hover:scale-105"
+            className="mt-4 p-2 text-xl bg-pBlue text-white rounded-md duration-100 hover:scale-105 shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
             type="submit"
           >
             Save Student

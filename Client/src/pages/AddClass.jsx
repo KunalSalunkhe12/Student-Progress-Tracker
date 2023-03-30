@@ -3,6 +3,8 @@ import Dashboard from "../components/Dashboard";
 import jwt from "jwt-decode";
 import { API_ENDPOINT } from "../constants";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineFolderAdd } from "react-icons/ai";
+import { MdSubject } from "react-icons/md";
 
 const AddClass = () => {
   const Teacher = jwt(localStorage.getItem("user"));
@@ -56,10 +58,11 @@ const AddClass = () => {
         className="flex flex-col flex-1 justify-center items-center py-20"
         onSubmit={handleSubmit}
       >
-        <h1 className="text-3xl text-pBlue font-bold mb-4">
+        <h1 className="text-2xl text-pBlue font-bold mb-4 flex items-center gap-2">
+          <AiOutlineFolderAdd />
           Add Class Details
         </h1>
-        <div className="bg-pRed p-6 rounded-md w-1/2">
+        <div className="bg-pRed p-6 rounded-md w-1/2 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
           <div className="text-xl font-semibold text-white gap-2 flex flex-col">
             <label htmlFor="name">Year:</label>
             <input
@@ -91,10 +94,11 @@ const AddClass = () => {
             />
           </div>
         </div>
-        <h2 className="text-3xl text-pBlue font-bold mb-4">
+        <h2 className="text-2xl text-pBlue font-bold mb-4 mt-4 flex items-center gap-2">
+          <MdSubject />
           Add Class Subjects
         </h2>
-        <div className="bg-pRed p-6 rounded-md w-1/2">
+        <div className="bg-pRed p-6 rounded-md w-1/2 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
           <div className="text-xl font-semibold text-white gap-2 mt-4 flex flex-col">
             <label htmlFor="marks-subject1">Subject 1:</label>
             <input
@@ -152,7 +156,7 @@ const AddClass = () => {
           </div>
         </div>
         <button
-          className="mt-4 p-2 text-xl bg-pBlue text-white rounded-md duration-100 hover:scale-105 w-1/2"
+          className="mt-4 p-2 text-xl bg-pBlue text-white rounded-md duration-100 hover:scale-105 w-1/2 shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
           type="submit"
         >
           Add Class

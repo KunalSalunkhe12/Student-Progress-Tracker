@@ -1,5 +1,23 @@
 import Student from "../models/student.js";
 
+export const studentLogin = async (req, res) => {
+    const { rollNumber, studentClass } = req.body;
+
+    try {
+        const student = await Student.findOne({ rollNumber, studentClass });
+
+        if (!student) {
+            return res.status(401).json({ message: 'Invalid rollNumber or studentClass' });
+        }
+
+        return res.status(200).json({ message: 'Login successful', student });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+
+}
+
 export const addStudent = async (req, res) => {
     try {
         const { studentName, rollNumber, studentClass, studentClassId, marks, defaulter } = req.body;
