@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import ClassBox from "../components/ClassBox";
 import Dashboard from "../components/Dashboard";
 import { API_ENDPOINT } from "../constants";
@@ -10,27 +9,51 @@ function ClassList() {
 
   const [allClassData, setAllClassData] = useState([]);
 
+  const getAllClasses = async () => {
+    try {
+      const response = await fetch(`${API_ENDPOINT}class/get-all-class`, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+
+      const classes = await response.json();
+
+      if (classes) setAllClassData(classes);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   //Gets all Classes from database
   useEffect(() => {
-    const getAllClasses = async () => {
-      try {
-        const response = await fetch(`${API_ENDPOINT}class/get-all-class`, {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-          },
-        });
-
-        const classes = await response.json();
-
-        if (classes) setAllClassData(classes);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     getAllClasses();
   }, []);
+
+  const deleteClass = async (classId) => {
+    try {
+      const response = await fetch(
+        `${API_ENDPOINT}class/delete-class?classId=${classId}`,
+        { method: "DELETE" }
+      );
+
+      if (!response.ok) {
+        const error = await response.json();
+        alert(error.error);
+      }
+
+      const result = await response.json();
+      if (result.status === "ok") {
+        getAllClasses();
+      } else {
+        alert(result.message);
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
 
   return (
     <>
@@ -41,12 +64,11 @@ function ClassList() {
             {allClassData.length !== 0 ? (
               allClassData.map((classData) => {
                 return (
-                  <Link
+                  <ClassBox
                     key={classData._id}
-                    to={`/teacher-classes/${classData._id}`}
-                  >
-                    <ClassBox key={classData._id} classData={classData} />
-                  </Link>
+                    classData={classData}
+                    deleteClass={() => deleteClass(classData._id)}
+                  />
                 );
               })
             ) : (

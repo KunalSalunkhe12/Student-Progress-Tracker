@@ -1,4 +1,5 @@
 import Class from "../models/class.js";
+import Student from "../models/student.js"
 
 export const addClass = async (req, res) => {
     const { className, sem, year, subject } = req.body;
@@ -36,5 +37,24 @@ export const getAllClass = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error retrieving classes' });
+    }
+}
+
+export const deleteClass = async (req, res) => {
+    const classId = req.query.classId;
+
+    try {
+        const deletedClass = await Class.findByIdAndDelete(classId);
+
+        if (!deletedClass) {
+            return res.status(404).json({ error: 'Class not found' });
+        }
+
+        await Student.deleteMany({ studentClassId: classId });
+
+        res.json({ message: 'Class deleted successfully', status: 'ok' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
     }
 }
