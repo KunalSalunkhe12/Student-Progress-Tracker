@@ -5,12 +5,12 @@ const classSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    branch: {
-        type: String,
+    sem: {
+        type: Number,
         required: true
     },
     year: {
-        type: Number,
+        type: String,
         required: true
     },
     subject: {

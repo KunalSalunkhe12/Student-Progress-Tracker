@@ -10,29 +10,28 @@ const studentSchema = new mongoose.Schema({
         required: true
     },
     studentClass: {
-        type: Number,
+        type: String,
         required: true
     },
     studentClassId: {
         type: String,
-        required
+        required: true
     },
     marks: {
-        subject1: {
-            type: Number, required: true
-        },
-        subject2: {
-            type: Number, required: true
-        },
-        subject3: {
-            type: Number, required: true
-        },
-        subject4: {
-            type: Number, required: true
-        },
-        subject5: {
-            type: Number, required: true
-        }
+        type: Map,
+        of: Number
+    },
+    sgpi: {
+        type: Number,
+        required: true
+    },
+    defaulter: {
+        type: String,
+        required: true
+    },
+    prediction: {
+        type: String,
+        required: true
     }
 }, { collection: 'student-data' });
 

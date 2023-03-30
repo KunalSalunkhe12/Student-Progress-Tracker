@@ -8,6 +8,8 @@ import ClassList from './pages/ClassList';
 import AddClass from './pages/AddClass';
 import StudentList from './pages/StudentList';
 import AddStudent from './pages/AddStudent';
+import StudentProfile from './components/StudentProfile';
+import StudentPage from './pages/StudentPage';
 
 function App() {
   return (
@@ -17,11 +19,13 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/teacher-auth' element={<TeacherAuth />} />
-          <Route path='/student-auth' element={<StudentAuth />} />
           <Route path='/teacher-classes' element={<ClassList />} />
           <Route path='/teacher-classes/:id' element={<StudentList />} />
           <Route path='/teacher-add-class' element={<AddClass />} />
           <Route path='/teacher-add-student' element={<AddStudent />} />
+          <Route path='/teacher-student-profile/:id' element={<StudentPage />} />
+          <Route path='/student-auth' element={<StudentAuth />} />
+          <Route path='/student-profile/:id' element={<StudentProfile />} />
         </Routes>
       </div>
     </Router>

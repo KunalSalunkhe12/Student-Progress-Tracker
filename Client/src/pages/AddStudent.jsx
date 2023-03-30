@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { API_ENDPOINT } from "../constants";
+import { useNavigate } from "react-router-dom";
 import Dashboard from "../components/Dashboard";
 import jwt from "jwt-decode";
 
 function AddStudent() {
+  const Teacher = jwt(localStorage.getItem("user"));
+  const navigate = useNavigate();
+
   const [studentName, setStudentName] = useState("");
   const [rollNumber, setRollNumber] = useState("");
   const [studentClass, setStudentClass] = useState();
   const [marks, setMarks] = useState({});
+  const [defaulter, setDefaulter] = useState("");
+
   const [allClassData, setAllClassData] = useState([]);
-  //
   const [selectedClass, setSelectedClass] = useState();
 
-  const Teacher = jwt(localStorage.getItem("user"));
-
+  //get all class from database
   useEffect(() => {
     const getAllClasses = async () => {
       try {
@@ -35,30 +39,52 @@ function AddStudent() {
     getAllClasses();
   }, []);
 
+  //selected Class
   useEffect(() => {
-    const currentClassSelected = allClassData.filter((classData) => {
-      return;
-    });
-  }, []);
-
-  //add student
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // send the student information to the server to be saved
-    try {
-    } catch (error) {}
-    const studentInfo = { studentName, rollNumber, studentClass, marks };
-    console.log(studentInfo);
-    // ... make the API call here to save the student info to the server
-  };
+    const currentSelectedClass = allClassData.filter(
+      (classData) =>
+        `${classData.className}-${classData.year}-${classData.sem}` ===
+        studentClass
+    );
+    setSelectedClass(...currentSelectedClass);
+  }, [studentClass, allClassData]);
 
   //handles the marks input
   const handleMarksChange = (event) => {
     const { name, value } = event.target;
     setMarks((prevMarks) => ({
       ...prevMarks,
-      [name]: parseInt(value),
+      [name]: value,
     }));
+  };
+
+  //add student submit
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch(`${API_ENDPOINT}student/add-student`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          studentName,
+          rollNumber,
+          studentClass,
+          studentClassId: selectedClass._id,
+          marks,
+          defaulter,
+        }),
+      });
+
+      const student = await response.json();
+      alert(student.message);
+      navigate(`/teacher-classes/${selectedClass._id}`);
+    } catch (error) {
+      alert("Please Select Class and Defaulter");
+      console.log(error);
+    }
   };
 
   return (
@@ -103,22 +129,15 @@ function AddStudent() {
                 value={studentClass}
                 onChange={(e) => setStudentClass(e.target.value)}
               >
+                <option value="">-</option>
                 {allClassData.map((classData) => {
                   return (
                     <option key={classData._id}>
-                      {classData.className}-{classData.branch}
+                      {classData.className}-{classData.year}-{classData.sem}
                     </option>
                   );
                 })}
               </select>
-              {/* <input
-                className="p-1 text-black outline-pBlue rounded-sm"
-                type="text"
-                id="studentClass"
-                value={studentClass}
-                onChange={(e) => setStudentClass(e.target.value)}
-                required
-              /> */}
             </div>
           </div>
           <h2 className="text-3xl font-bold text-pBlue mb-4 text-center mt-4">
@@ -126,67 +145,126 @@ function AddStudent() {
           </h2>
           <div className="bg-pRed p-6 rounded-md flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <label htmlFor="marks-subject1">Subject 1 Marks:</label>
+              <label htmlFor="marks-subject1">
+                {selectedClass
+                  ? selectedClass.subject.subject1
+                  : "Subject 1 Marks"}
+              </label>
               <input
                 className="p-1 text-black outline-pBlue rounded-sm"
                 type="number"
                 id="marks-subject1"
-                name="subject1"
-                value={marks.subject1 || ""}
+                name={
+                  selectedClass ? selectedClass.subject.subject1 : "subject1"
+                }
+                value={
+                  selectedClass ? marks[selectedClass.subject.subject1] : ""
+                }
                 onChange={handleMarksChange}
                 required
               />
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="marks-subject2">Subject 2 Marks:</label>
+              <label htmlFor="marks-subject2">
+                {selectedClass
+                  ? selectedClass.subject.subject2
+                  : "Subject 2 Marks"}
+              </label>
               <input
                 className="p-1 text-black outline-pBlue rounded-sm"
                 type="number"
                 id="marks-subject2"
-                name="subject2"
-                value={marks.subject2 || ""}
+                name={
+                  selectedClass ? selectedClass.subject.subject2 : "subject2"
+                }
+                value={
+                  selectedClass ? marks[selectedClass.subject.subject2] : ""
+                }
                 onChange={handleMarksChange}
                 required
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="marks-subject3">Subject 3 Marks:</label>
+              <label htmlFor="marks-subject3">
+                {selectedClass
+                  ? selectedClass.subject.subject3
+                  : "Subject 3 Marks"}
+              </label>
               <input
                 className="p-1 text-black outline-pBlue rounded-sm"
                 type="number"
                 id="marks-subject3"
-                name="subject3"
-                value={marks.subject3 || ""}
+                name={
+                  selectedClass ? selectedClass.subject.subject3 : "subject3"
+                }
+                value={
+                  selectedClass ? marks[selectedClass.subject.subject3] : ""
+                }
                 onChange={handleMarksChange}
                 required
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="marks-subject4">Subject 4 Marks:</label>
+              <label htmlFor="marks-subject4">
+                {selectedClass
+                  ? selectedClass.subject.subject4
+                  : "Subject 4 Marks"}
+              </label>
               <input
                 className="p-1 text-black outline-pBlue rounded-sm"
                 type="number"
                 id="marks-subject4"
-                name="subject4"
-                value={marks.subject4 || ""}
+                name={
+                  selectedClass ? selectedClass.subject.subject4 : "subject4"
+                }
+                value={
+                  selectedClass ? marks[selectedClass.subject.subject4] : ""
+                }
                 onChange={handleMarksChange}
                 required
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="marks-subject5">Subject 5 Marks:</label>
+              <label htmlFor="marks-subject5">
+                {selectedClass
+                  ? selectedClass.subject.subject5
+                  : "Subject 5 Marks"}
+              </label>
               <input
                 className="p-1 text-black outline-pBlue rounded-sm"
                 type="number"
                 id="marks-subject5"
-                name="subject5"
-                value={marks.subject5 || ""}
+                name={
+                  selectedClass ? selectedClass.subject.subject5 : "subject5"
+                }
+                value={
+                  selectedClass ? marks[selectedClass.subject.subject5] : ""
+                }
                 onChange={handleMarksChange}
                 required
               />
             </div>
           </div>
+          <h2 className="text-3xl font-bold text-pBlue mb-4 text-center mt-4">
+            Add Defaulter Status
+          </h2>
+          <div className="bg-pRed p-6 rounded-md flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              <label htmlFor="defaulter">Defaulter:</label>
+              <select
+                className="text-black"
+                id="defaulter"
+                value={defaulter}
+                onChange={(e) => setDefaulter(e.target.value)}
+              >
+                <option value="">-</option>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+              </select>
+            </div>
+          </div>
+
           <button
             className="mt-4 p-2 text-xl bg-pBlue text-white rounded-md duration-100 hover:scale-105"
             type="submit"

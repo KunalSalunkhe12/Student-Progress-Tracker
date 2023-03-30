@@ -6,13 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 const AddClass = () => {
   const Teacher = jwt(localStorage.getItem("user"));
+  const navigate = useNavigate();
 
   const [className, setClassName] = useState("");
-  const [branch, setBranch] = useState("");
+  const [sem, setSem] = useState("");
   const [year, setYear] = useState("");
   const [subject, setSubject] = useState({});
-
-  const navigate = useNavigate();
 
   const handleSubjectChange = (event) => {
     const { name, value } = event.target;
@@ -25,7 +24,7 @@ const AddClass = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log({ className, branch, year, subject });
+    console.log({ className, sem, year, subject });
 
     const response = await fetch(`${API_ENDPOINT}class/add-class`, {
       method: "POST",
@@ -34,7 +33,7 @@ const AddClass = () => {
       },
       body: JSON.stringify({
         className,
-        branch,
+        sem,
         year,
         subject,
       }),
@@ -62,33 +61,33 @@ const AddClass = () => {
         </h1>
         <div className="bg-pRed p-6 rounded-md w-1/2">
           <div className="text-xl font-semibold text-white gap-2 flex flex-col">
-            <label htmlFor="name">Class:</label>
+            <label htmlFor="name">Year:</label>
             <input
               className="p-1 text-black outline-pBlue rounded-sm"
               type="text"
               id="name"
-              value={className}
-              onChange={(e) => setClassName(e.target.value.toUpperCase())}
+              value={year}
+              onChange={(e) => setYear(e.target.value.toUpperCase())}
             />
           </div>
           <div className="text-xl font-semibold text-white gap-2 mt-4 flex flex-col">
-            <label htmlFor="branch">Branch:</label>
+            <label htmlFor="branch">Sem:</label>
             <input
               className="p-1 text-black outline-pBlue rounded-sm"
-              type="text"
+              type="number"
               id="branch"
-              value={branch}
-              onChange={(e) => setBranch(e.target.value.toUpperCase())}
+              value={sem}
+              onChange={(e) => setSem(e.target.value.toUpperCase())}
             />
           </div>
           <div className="text-xl font-semibold text-white gap-2 mt-4 flex flex-col">
-            <label htmlFor="year">Year:</label>
+            <label htmlFor="year">Class:</label>
             <input
               className="p-1 text-black outline-pBlue rounded-sm"
               type="text"
               id="year"
-              value={year}
-              onChange={(e) => setYear(e.target.value.toUpperCase())}
+              value={className}
+              onChange={(e) => setClassName(e.target.value.toUpperCase())}
             />
           </div>
         </div>

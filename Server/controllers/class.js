@@ -1,10 +1,10 @@
 import Class from "../models/class.js";
 
 export const addClass = async (req, res) => {
-    const { className, branch, year, subject } = req.body;
+    const { className, sem, year, subject } = req.body;
 
     try {
-        const existingClass = await Class.findOne({ className, branch, year });
+        const existingClass = await Class.findOne({ className, sem, year });
 
         if (existingClass) {
             return res.status(400).json({ message: 'Class already exists' });
@@ -12,7 +12,7 @@ export const addClass = async (req, res) => {
 
         const newClass = new Class({
             className,
-            branch,
+            sem,
             year,
             subject
         });

@@ -44,6 +44,8 @@ function TeacherAuth() {
       if (data.message === "ok") {
         alert("Registration successful");
         setIsSignUp(false);
+      } else {
+        alert("User already exist Duplicate email");
       }
     } else {
       const response = await fetch(`${API_ENDPOINT}user/teacher-login`, {

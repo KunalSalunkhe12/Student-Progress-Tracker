@@ -13,7 +13,6 @@ export const teacherSignup = async (req, res) => {
         })
         res.json({ message: 'ok' })
     } catch (err) {
-        console.log(err)
         res.json({ status: 'error', message: 'Duplicate email' })
     }
 }

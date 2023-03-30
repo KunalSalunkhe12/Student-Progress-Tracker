@@ -3,7 +3,7 @@ import cors from "cors"
 import mongoose from "mongoose"
 import userRoutes from "./routes/user.js"
 import classRoutes from "./routes/class.js"
-// import studentRoutes from "./routes/student.js"
+import studentRoutes from "./routes/student.js"
 
 
 
@@ -14,7 +14,7 @@ app.use(cors({ origin: "http://localhost:3000" }))
 
 app.use("/user", userRoutes)
 app.use("/class", classRoutes)
-// app.use("/student", studentRoutes)
+app.use("/student", studentRoutes)
 
 app.get("/", (req, res) => {
     res.send("Student Progress Analyzer API")

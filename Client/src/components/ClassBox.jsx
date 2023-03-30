@@ -7,7 +7,7 @@ function ClassBox({ classData }) {
         <span className="text-pYellow">Class:-</span> {classData.className}
       </h2>
       <h3>
-        <span className="text-pYellow">Branch:-</span> {classData.branch}
+        <span className="text-pYellow">Semester:-</span> {classData.sem}
       </h3>
       <h3>
         <span className="text-pYellow">Year:-</span> {classData.year}
