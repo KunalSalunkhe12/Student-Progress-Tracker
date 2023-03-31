@@ -64,34 +64,54 @@ const AddClass = () => {
         </h1>
         <div className="bg-pRed p-6 rounded-md w-1/2 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
           <div className="text-xl font-semibold text-white gap-2 flex flex-col">
-            <label htmlFor="name">Year:</label>
-            <input
+            <label htmlFor="year">Year:</label>
+            <select
               className="p-1 text-black outline-pBlue rounded-sm"
-              type="text"
-              id="name"
-              value={year}
-              onChange={(e) => setYear(e.target.value.toUpperCase())}
-            />
-          </div>
-          <div className="text-xl font-semibold text-white gap-2 mt-4 flex flex-col">
-            <label htmlFor="branch">Sem:</label>
-            <input
-              className="p-1 text-black outline-pBlue rounded-sm"
-              type="number"
-              id="branch"
-              value={sem}
-              onChange={(e) => setSem(e.target.value.toUpperCase())}
-            />
-          </div>
-          <div className="text-xl font-semibold text-white gap-2 mt-4 flex flex-col">
-            <label htmlFor="year">Class:</label>
-            <input
-              className="p-1 text-black outline-pBlue rounded-sm"
-              type="text"
               id="year"
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
+            >
+              <option>-</option>
+              <option>FE</option>
+              <option>SE</option>
+              <option>TE</option>
+              <option>BE</option>
+            </select>
+          </div>
+          <div className="text-xl font-semibold text-white gap-2 mt-4 flex flex-col">
+            <label htmlFor="sem">Sem:</label>
+            <select
+              className="p-1 text-black outline-pBlue rounded-sm"
+              id="sem"
+              value={sem}
+              onChange={(e) => setSem(e.target.value)}
+            >
+              <option>-</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+            </select>
+          </div>
+          <div className="text-xl font-semibold text-white gap-2 mt-4 flex flex-col">
+            <label htmlFor="class">Class:</label>
+            <select
+              className="p-1 text-black outline-pBlue rounded-sm"
+              id="class"
               value={className}
-              onChange={(e) => setClassName(e.target.value.toUpperCase())}
-            />
+              onChange={(e) => setClassName(e.target.value)}
+            >
+              <option>-</option>
+              <option>IT</option>
+              <option>EXTC</option>
+              <option>CMPN</option>
+              <option>MECH</option>
+              <option>ECS</option>
+            </select>
           </div>
         </div>
         <h2 className="text-2xl text-pBlue font-bold mb-4 mt-4 flex items-center gap-2">

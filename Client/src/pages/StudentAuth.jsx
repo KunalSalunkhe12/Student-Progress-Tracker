@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { API_ENDPOINT } from "../constants";
 import { useNavigate } from "react-router-dom";
 
@@ -59,6 +60,7 @@ function TeacherAuth() {
 
   return (
     <div className="w-screen min-h-screen flex justify-center items-center flex-col p-3 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+      <h2 className="text-2xl mb-8 font-semibold">Student Login</h2>
       <form
         onSubmit={handleSubmit}
         className="w-[90%] md:w-1/2 lg:w-1/3 p-4 text-white bg-pBlue rounded-lg flex flex-col gap-4"
@@ -95,6 +97,9 @@ function TeacherAuth() {
           Log in
         </button>
       </form>
+      <button className="mt-4 text-pBlue">
+        <Link to="/">Go Back</Link>
+      </button>
     </div>
   );
 }

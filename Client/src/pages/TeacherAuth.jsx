@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { API_ENDPOINT } from "../constants";
 
@@ -122,6 +123,9 @@ function TeacherAuth() {
         </button>
       </form>
       <p className="mt-4">
+        <button className="mr-6">
+          <Link to="/">Go Back</Link>
+        </button>
         {isSignUp ? "Already have an account?" : `Don't have an account?`}
         <button className="ml-4" onClick={handleSwitch}>
           {isSignUp ? "Log in" : "Sign up"}

@@ -5,6 +5,7 @@ import { AiOutlineFolderAdd } from "react-icons/ai";
 import { MdGroupAdd } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { FaUserCircle } from "react-icons/fa";
+import { MdOutlineAnalytics } from "react-icons/md";
 
 function Dashboard({ name }) {
   const handleLogout = () => {
@@ -49,6 +50,17 @@ function Dashboard({ name }) {
               <span className="text-sm font-medium flex items-center gap-2">
                 <MdGroupAdd />
                 Add students
+              </span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/teacher-view-analytics"
+              className="flex flex-row items-center justify-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-white hover:text-gray-500"
+            >
+              <span className="text-sm font-medium flex items-center gap-2">
+                <MdOutlineAnalytics />
+                View Analytics
               </span>
             </Link>
           </li>

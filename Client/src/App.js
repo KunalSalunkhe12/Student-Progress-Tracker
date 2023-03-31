@@ -10,6 +10,7 @@ import StudentList from './pages/StudentList';
 import AddStudent from './pages/AddStudent';
 import StudentProfile from './components/StudentProfile';
 import StudentPage from './pages/StudentPage';
+import ViewAnalytics from './pages/ViewAnalytics';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path='/teacher-student-profile/:id' element={<StudentPage />} />
           <Route path='/student-auth' element={<StudentAuth />} />
           <Route path='/student-profile/:id' element={<StudentProfile />} />
+          <Route path='/teacher-view-analytics' element={<ViewAnalytics />} />
         </Routes>
       </div>
     </Router>

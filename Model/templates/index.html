@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SVM Model Deployment Testing</title>
+</head>
+
+<body>
+	<h1>SVM Model Deployment Testing</h1>
+	<form>
+		<label>Defaulter:</label>
+		<input type="text" id="Defaulter"><br><br>
+		<label>DMBI_ESE:</label>
+		<input type="text" id="DMBI_ESE"><br><br>
+		<label>WEBX_ESE:</label>
+		<input type="text" id="WEBX_ESE"><br><br>
+		<label>DS_ESE:</label>
+		<input type="text" id="DS_ESE"><br><br>
+		<label>WT_ESE:</label>
+		<input type="text" id="WT_ESE"><br><br>
+		<label>GIT_ESE:</label>
+		<input type="text" id="GIT_ESE"><br><br>
+		<label>SGPI_(GPA):</label>
+		<input type="text" id="SGPI_(GPA)"><br><br>
+		<input type="button" value="Predict" onclick="predict()">
+	</form>
+	<p>Prediction: <span id="result"></span></p>
+	<script>
+		function predict() {
+			var xhr = new XMLHttpRequest();
+			var url = "/predict";
+			var data = JSON.stringify({
+				"Defaulter": document.getElementById("Defaulter").value,
+				"DMBI_ESE": document.getElementById("DMBI_ESE").value,
+				"WEBX_ESE": document.getElementById("WEBX_ESE").value,
+				"DS_ESE": document.getElementById("DS_ESE").value,
+				"WT_ESE": document.getElementById("WT_ESE").value,
+				"GIT_ESE": document.getElementById("GIT_ESE").value,
+				"SGPI_(GPA)": document.getElementById("SGPI_(GPA)").value
+			});
+			xhr.open("POST", url, true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					document.getElementById("result").innerHTML = xhr.responseText;
+				}
+			};
+			xhr.send(data);
+		}
+	</script>
+</body>
+
+</html>

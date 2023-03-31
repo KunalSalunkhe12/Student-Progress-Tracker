@@ -10,6 +10,9 @@ function StudentList() {
   const Teacher = jwt(localStorage.getItem("user"));
 
   const [students, setStudents] = useState([]);
+  const [filteredStudents, setFilteredStudents] = useState([]);
+  const [filter, setFilter] = useState("");
+  const [message, setMessage] = useState("");
 
   const getStudents = async () => {
     try {
@@ -32,6 +35,7 @@ function StudentList() {
 
   useEffect(() => {
     getStudents();
+    // eslint-disable-next-line
   }, [classId]);
 
   const deleteStudent = async (studentId) => {
@@ -58,10 +62,49 @@ function StudentList() {
     }
   };
 
+  //filter students
+  useEffect(() => {
+    const filterStudents = () => {
+      if (filter === "") {
+        setFilteredStudents(students);
+        setMessage("Please Add Students");
+      } else {
+        const filtered = students.filter(
+          (student) => student.prediction === filter
+        );
+        console.log(filtered);
+        setFilteredStudents(filtered);
+        setMessage(`No ${filter}s`);
+      }
+    };
+    filterStudents();
+  }, [filter, students]);
+
   return (
     <div className="flex">
       <Dashboard name={Teacher.name} />
       <div className="flex-1 flex flex-col items-center py-20 px-4 ">
+        <div className="flex gap-2 w-full justify-start mb-6">
+          <select
+            className="border-2 bg-pBlue text-white p-2 rounded-md font-semibold"
+            name=""
+            id="filter"
+            onClick={(e) => setFilter(e.target.value)}
+          >
+            <option className="p-4" value="">
+              All Students
+            </option>
+            <option className="p-4" value="Good Performer">
+              Good Performers
+            </option>
+            <option className="p-4" value="Average Performer">
+              Average Performers
+            </option>
+            <option className="p-4" value="Slow Performer">
+              Slow Performers
+            </option>
+          </select>
+        </div>
         <div className="grid grid-cols-6 w-full">
           <h2 className="p-2 border-2 bg-pRed text-pYellow font-semibold">
             Roll No.
@@ -82,8 +125,8 @@ function StudentList() {
             Action
           </h2>
         </div>
-        {students.length > 0 ? (
-          students.map((student) => {
+        {filteredStudents.length > 0 ? (
+          filteredStudents.map((student) => {
             return (
               <div
                 className="grid grid-cols-6 w-full border-2"
@@ -109,7 +152,7 @@ function StudentList() {
             );
           })
         ) : (
-          <h2 className="mt-10 text-2xl font-semibold">Please Add Students</h2>
+          <h2 className="mt-10 text-2xl font-semibold">{message}</h2>
         )}
       </div>
     </div>

@@ -1,4 +1,5 @@
 import Student from "../models/student.js";
+import fetch from "node-fetch"
 
 export const studentLogin = async (req, res) => {
     const { rollNumber, studentClass } = req.body;
@@ -27,9 +28,42 @@ export const addStudent = async (req, res) => {
             return res.status(400).json({ message: 'A student with the same roll number already exists in this class' });
         }
 
+        const Defaulter = defaulter === "Yes" ? '1' : '0'
+
         const marksArray = Object.values(marks)
         const sum = marksArray.reduce((acc, curr) => acc + parseInt(curr), 0);
         const sgpi = (sum / 500 * 10).toFixed(2)
+
+        const dataFrame = {
+            "Defaulter": Defaulter,
+            "DMBI_ESE": marksArray[0],
+            "WEBX_ESE": marksArray[1],
+            "DS_ESE": marksArray[2],
+            "WT_ESE": marksArray[3],
+            "GIT_ESE": marksArray[4],
+            "SGPI_(GPA)": sgpi
+        }
+        const response = await fetch('http://127.0.0.1:5000/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataFrame)
+        });
+        const result = await response.json();
+        console.log(result)
+        let prediction = ""
+
+        if (result[0] == "1") {
+            prediction = "Good Performer"
+        }
+        else if (result[0] == "2") {
+            prediction = "Average Performer"
+        }
+        else if (result[0] == "3") {
+            prediction = "Slow Performer"
+        }
+
 
         const newStudent = new Student({
             studentName,
@@ -39,7 +73,7 @@ export const addStudent = async (req, res) => {
             marks,
             sgpi,
             defaulter,
-            prediction: "Calculate"
+            prediction: prediction
         });
 
         const savedStudent = await newStudent.save();
