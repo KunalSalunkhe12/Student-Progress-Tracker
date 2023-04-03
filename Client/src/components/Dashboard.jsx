@@ -16,7 +16,7 @@ function Dashboard({ name }) {
     <div className="min-h-screen flex flex-row">
       <div className="flex flex-col w-56 mt-16 bg-pBlue overflow-hidden">
         <div className="flex items-center justify-center h-10 shadow-md">
-          <h1 className="text-md uppercase text-gray-300 flex items-center gap-2">
+          <h1 className="text-md uppercase text-gray-300 flex items-center gap-2 text-pYellow">
             <FaUserCircle /> {name}
           </h1>
         </div>

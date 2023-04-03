@@ -8,8 +8,20 @@ import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import { MdOutlineDisabledByDefault } from "react-icons/md";
 
 function AddStudent() {
-  const Teacher = jwt(localStorage.getItem("user"));
+  const [Teacher, setTeacher] = useState("");
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("user");
+    if (token) {
+      const user = jwt(token);
+      const userName = user.name;
+      setTeacher(userName);
+    } else {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const [studentName, setStudentName] = useState("");
   const [rollNumber, setRollNumber] = useState("");
@@ -96,7 +108,7 @@ function AddStudent() {
 
   return (
     <div className="flex">
-      <Dashboard name={Teacher.name} />
+      <Dashboard name={Teacher} />
       <div className="flex-1 flex justify-center items-center flex-col py-20">
         <h1 className="text-2xl font-bold text-pBlue mb-4 flex items-center gap-2">
           <MdGroupAdd />

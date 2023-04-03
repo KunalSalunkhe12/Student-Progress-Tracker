@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { API_ENDPOINT } from "../constants";
 import { AiFillDelete } from "react-icons/ai";
 import Dashboard from "../components/Dashboard";
@@ -7,12 +7,24 @@ import jwt from "jwt-decode";
 
 function StudentList() {
   const { id: classId } = useParams();
-  const Teacher = jwt(localStorage.getItem("user"));
+  const [Teacher, setTeacher] = useState("");
+  const [errorText, setErrorText] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("user");
+    if (token) {
+      const user = jwt(token);
+      const userName = user.name;
+      setTeacher(userName);
+    } else {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const [students, setStudents] = useState([]);
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [filter, setFilter] = useState("");
-  const [message, setMessage] = useState("");
 
   const getStudents = async () => {
     try {
@@ -67,14 +79,14 @@ function StudentList() {
     const filterStudents = () => {
       if (filter === "") {
         setFilteredStudents(students);
-        setMessage("Please Add Students");
+        setErrorText("Please Add Students");
       } else {
         const filtered = students.filter(
           (student) => student.prediction === filter
         );
         console.log(filtered);
         setFilteredStudents(filtered);
-        setMessage(`No ${filter}s`);
+        setErrorText(`No ${filter}s`);
       }
     };
     filterStudents();
@@ -82,7 +94,7 @@ function StudentList() {
 
   return (
     <div className="flex">
-      <Dashboard name={Teacher.name} />
+      <Dashboard name={Teacher} />
       <div className="flex-1 flex flex-col items-center py-20 px-4 ">
         <div className="flex gap-2 w-full justify-start mb-6">
           <select
@@ -152,7 +164,7 @@ function StudentList() {
             );
           })
         ) : (
-          <h2 className="mt-10 text-2xl font-semibold">{message}</h2>
+          <h2 className="mt-10 text-2xl font-semibold">{errorText}</h2>
         )}
       </div>
     </div>

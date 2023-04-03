@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ClassBox from "../components/ClassBox";
 import Dashboard from "../components/Dashboard";
 import { API_ENDPOINT } from "../constants";
 import jwt from "jwt-decode";
 
 function ClassList() {
-  const Teacher = jwt(localStorage.getItem("user"));
+  const [Teacher, setTeacher] = useState("");
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("user");
+    if (token) {
+      const user = jwt(token);
+      const userName = user.name;
+      setTeacher(userName);
+    } else {
+      navigate("/");
+    }
+  }, [navigate]);
   const [allClassData, setAllClassData] = useState([]);
 
   const getAllClasses = async () => {
@@ -58,7 +71,7 @@ function ClassList() {
   return (
     <>
       <div className="flex">
-        <Dashboard name={Teacher.name} />
+        <Dashboard name={Teacher} />
         <div className="flex-1">
           <div className="grid grid-cols-3 gap-4 pt-24 px-8">
             {allClassData.length !== 0 ? (

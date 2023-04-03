@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Dashboard from "../components/Dashboard";
 import jwt from "jwt-decode";
 import { API_ENDPOINT } from "../constants";
@@ -7,8 +7,19 @@ import { AiOutlineFolderAdd } from "react-icons/ai";
 import { MdSubject } from "react-icons/md";
 
 const AddClass = () => {
-  const Teacher = jwt(localStorage.getItem("user"));
+  const [Teacher, setTeacher] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("user");
+    if (token) {
+      const user = jwt(token);
+      const userName = user.name;
+      setTeacher(userName);
+    } else {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const [className, setClassName] = useState("");
   const [sem, setSem] = useState("");
@@ -53,7 +64,7 @@ const AddClass = () => {
 
   return (
     <div className="flex ">
-      <Dashboard name={Teacher.name} />
+      <Dashboard name={Teacher} />
       <form
         className="flex flex-col flex-1 justify-center items-center py-20"
         onSubmit={handleSubmit}

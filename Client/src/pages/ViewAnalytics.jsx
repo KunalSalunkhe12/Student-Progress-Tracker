@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { API_ENDPOINT } from "../constants";
 import Dashboard from "../components/Dashboard";
 import jwt from "jwt-decode";
@@ -7,7 +8,20 @@ import DefaulterBarChart from "../components/DefaulterBarChart";
 import SgpiPieChart from "../components/SgpiPieChart";
 
 function ViewAnalytics() {
-  const Teacher = jwt(localStorage.getItem("user"));
+  const [Teacher, setTeacher] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("user");
+    if (token) {
+      const user = jwt(token);
+      const userName = user.name;
+      setTeacher(userName);
+    } else {
+      navigate("/");
+    }
+  }, [navigate]);
+
   const [studentClass, setStudentClass] = useState("");
   const [selectedClass, setSelectedClass] = useState();
   const [classId, setClassId] = useState("");
@@ -78,7 +92,7 @@ function ViewAnalytics() {
 
   return (
     <div className="flex">
-      <Dashboard name={Teacher.name} />
+      <Dashboard name={Teacher} />
       <div className="flex-1 flex flex-col gap-8 items-center py-20 px-4">
         <div className="flex gap-4 w-full items-center mb-6">
           <label className="text-xl font-semibold" htmlFor="studentClass">
