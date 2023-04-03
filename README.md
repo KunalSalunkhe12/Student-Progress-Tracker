@@ -16,30 +16,7 @@ This is our first project where we are working with a real time data set of past
 
 * Model Preview: [Click_here](https://student-progress-tracker.netlify.app)
 
-  *here we go:*
-
-  **Home**
-  ![Alt text](spt_1.png)
-
-  **Teachers dashboard**
-  ![Alt text](spt_2.png)
   
-  **Teachers class**
-  ![Alt text](spt_3.png)
-
-  **Add class**
-  ![Alt text](spt_4.png)
-
-  **Add Student**
-  ![Alt text](spt_3.png)
-
-  **View Analytics**
-  ![Alt text](spt_5.png)
-  ![Alt text](spt_6.png) 
-
-  **Student view by their credential**
-  ![Alt text](spt_7.png)
-
 
 **Also, we have deployed our project for compltete view/interaction:**
 
