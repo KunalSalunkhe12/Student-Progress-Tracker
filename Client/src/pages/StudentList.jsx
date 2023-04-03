@@ -9,6 +9,8 @@ function StudentList() {
   const { id: classId } = useParams();
   const [Teacher, setTeacher] = useState("");
   const [errorText, setErrorText] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,7 +41,10 @@ function StudentList() {
       );
 
       const studentsData = await response.json();
-      if (studentsData) setStudents(studentsData);
+      if (studentsData) {
+        setStudents(studentsData);
+        setIsLoading(false);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -137,7 +142,9 @@ function StudentList() {
             Action
           </h2>
         </div>
-        {filteredStudents.length > 0 ? (
+        {isLoading ? (
+          <div className="text-center text-2xl font-bold">Loading...</div>
+        ) : filteredStudents.length > 0 ? (
           filteredStudents.map((student) => {
             return (
               <div

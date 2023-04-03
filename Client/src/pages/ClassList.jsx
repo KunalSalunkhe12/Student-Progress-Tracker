@@ -7,6 +7,7 @@ import jwt from "jwt-decode";
 
 function ClassList() {
   const [Teacher, setTeacher] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -33,7 +34,10 @@ function ClassList() {
 
       const classes = await response.json();
 
-      if (classes) setAllClassData(classes);
+      if (classes) {
+        setAllClassData(classes);
+        setIsLoading(false);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -74,7 +78,9 @@ function ClassList() {
         <Dashboard name={Teacher} />
         <div className="flex-1">
           <div className="grid grid-cols-3 gap-4 pt-24 px-8">
-            {allClassData.length !== 0 ? (
+            {isLoading ? (
+              <div className="text-center text-2xl font-bold">Loading....</div>
+            ) : allClassData.length !== 0 ? (
               allClassData.map((classData) => {
                 return (
                   <ClassBox

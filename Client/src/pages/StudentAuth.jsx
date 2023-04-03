@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 function TeacherAuth() {
   const [rollNumber, setRollNumber] = useState("");
   const [studentClass, setStudentClass] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [allClassData, setAllClassData] = useState([]);
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ function TeacherAuth() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const response = await fetch(`${API_ENDPOINT}student/login`, {
@@ -46,15 +48,17 @@ function TeacherAuth() {
 
       if (!response.ok) {
         alert("Login Failed");
+        setIsLoading(false);
         return;
       }
 
       const data = await response.json();
       alert(data.message);
-
+      setIsLoading(false);
       navigate(`/student-profile/${data.student._id}`);
     } catch (error) {
       console.error(error);
+      setIsLoading(false);
     }
   };
 
@@ -94,7 +98,7 @@ function TeacherAuth() {
           })}
         </select>
         <button type="submit" className="text-lg">
-          Log in
+          {isLoading ? "..." : "Log in"}
         </button>
       </form>
       <button className="mt-4 text-pBlue">

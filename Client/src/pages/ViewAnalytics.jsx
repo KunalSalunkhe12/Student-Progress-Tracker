@@ -9,6 +9,7 @@ import SgpiPieChart from "../components/SgpiPieChart";
 
 function ViewAnalytics() {
   const [Teacher, setTeacher] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,6 +66,7 @@ function ViewAnalytics() {
   }, [selectedClass]);
 
   useEffect(() => {
+    setIsLoading(true);
     const getStudents = async () => {
       try {
         const response = await fetch(
@@ -78,8 +80,12 @@ function ViewAnalytics() {
         );
 
         const studentsData = await response.json();
-        if (studentsData) setStudents(studentsData);
+        if (studentsData) {
+          setStudents(studentsData);
+          setIsLoading(false);
+        }
       } catch (error) {
+        setIsLoading(false);
         console.error(error);
       }
     };
@@ -117,15 +123,23 @@ function ViewAnalytics() {
         </div>
         <div className="flex flex-col gap-4 items-center my-6 w-1/3">
           <h2 className="text-2xl font-semibold">Student Performance</h2>
-          <PerformancePieChart className="" studentsData={students} />
+          {isLoading ? (
+            "Loading..."
+          ) : (
+            <PerformancePieChart className="" studentsData={students} />
+          )}
         </div>
         <div className="flex flex-col gap-4 items-center my-6 w-1/3">
           <h2 className="text-2xl font-semibold">Student Defaulter</h2>
-          <DefaulterBarChart className="" studentsData={students} />
+          {isLoading ? (
+            "Loading..."
+          ) : (
+            <DefaulterBarChart className="" studentsData={students} />
+          )}
         </div>
         <div className="flex flex-col gap-4 items-center my-6 w-1/3">
           <h2 className="text-2xl font-semibold">Student SGPI</h2>
-          <SgpiPieChart studentsData={students} />
+          {isLoading ? "Loading..." : <SgpiPieChart studentsData={students} />}
         </div>
       </div>
     </div>

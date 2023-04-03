@@ -10,6 +10,7 @@ function TeacherAuth() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSwitch = () => {
     setIsSignUp(!isSignUp);
@@ -17,13 +18,18 @@ function TeacherAuth() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     if (!email && !password) {
       alert("Enter Email and Password");
+      setIsLoading(false);
+
       return;
     }
     if (!name && isSignUp) {
       alert("Enter Name");
+      setIsLoading(false);
+
       return;
     }
 
@@ -45,8 +51,10 @@ function TeacherAuth() {
       if (data.message === "ok") {
         alert("Registration successful");
         setIsSignUp(false);
+        setIsLoading(false);
       } else {
         alert("User already exist Duplicate email");
+        setIsLoading(false);
       }
     } else {
       const response = await fetch(`${API_ENDPOINT}user/teacher-login`, {
@@ -64,9 +72,11 @@ function TeacherAuth() {
       if (data.teacher) {
         alert(data.message);
         localStorage.setItem("user", data.teacher);
+        setIsLoading(false);
         navigate("/teacher-classes");
       } else {
         alert(data.message);
+        setIsLoading(false);
       }
     }
   };
@@ -119,7 +129,7 @@ function TeacherAuth() {
           />
         </label>
         <button type="submit" className="text-lg">
-          {isSignUp ? "Sign up" : "Log in"}
+          {isLoading ? "..." : isSignUp ? "Sign up" : "Log in"}
         </button>
       </form>
       <p className="mt-4">

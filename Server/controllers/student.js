@@ -29,6 +29,7 @@ export const addStudent = async (req, res) => {
         }
 
         const Defaulter = defaulter === "Yes" ? '1' : '0'
+        console.log(Defaulter)
 
         const marksArray = Object.values(marks)
         const sum = marksArray.reduce((acc, curr) => acc + parseInt(curr), 0);
@@ -43,7 +44,7 @@ export const addStudent = async (req, res) => {
             "GIT_ESE": marksArray[4],
             "SGPI_(GPA)": sgpi
         }
-        const response = await fetch('https://student-progress-tracker-flask-server.onrender.com/predict', {
+        const response = await fetch(process.env.FLASK_SERVER_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
