@@ -1,36 +1,45 @@
-# Student Progress Tracker:
-This is our first project where we are working with a real time data set of past 3 years student provided by the college to work on our innovative idea.
 
-* The idea behind the project is to analyze the insights of the student data based on their academic career and categories them accordingly.
+# Student Progress Analyzer
 
-* Also this was our end semester mini project, where we have used SVM(support vector machine) for model prediction and many more tools and technologies for building amazing frontend:
-      1. React
-      2. Js
-      3. Flask(Api)
-      4. Node.js
-      5. python(Machine Learning)
-      6. SVM
-      7. Tailwind
+Click to view 👇
 
-**We have also implemented some feature engineering and statistical engineering techniques to make our model more reliable and accurate**
-
-* Model Preview: [Click_here](https://student-progress-tracker.netlify.app)
-
-  
-
-**Also, we have deployed our project for compltete view/interaction:**
-
-* Complete Preview: [Student_Progress_Tracker](https://student-progress-tracker.netlify.app)
+[![Screenshot of Student Progress Analyzer](https://drive.google.com/uc?id=1rMM4q3VWktdbB94ZqewDeMus4OyFDpiY)](https://student-progress-tracker.netlify.app/)
 
 
+The Student Performance Prediction System is a project that aims to predict the academic performance of students based on their marks and defaulter status. The system provides insights to the teacher on which students are slow, average or good performers so that they can focus on providing more attention and support to the students who need it the most.
 
-*Special Thanks to team for thier contribution and concsistency in particular domain:*
 
-1. Kunal Salunkhe (Frontend_backend Master)
-    [Git_profile](https://github.com/rishabh23122211), [linkedIn](https://www.linkedin.com/in/kunal-salunkhe12)
+## Features
 
-2. Anuj Tiwari (Deployment)
- 
-3. Rishabh Singh (Machine_Learning, Data anaytics)
-   [Git_profile](https://github.com/rishabh23122211), [linkedIn](https://www.linkedin.com/in/rishabh-singh-37920526b)
+- Predicts the performance of a student based on their marks
+- Provides insights on which students are slow, average, or good performers
+- Assists in creating personalized learning plans for students
+- Improves the quality of education by providing valuable insights to teachers
+
+
+## How it works
+
+- The system uses SVM(support vector machine) algorithm to predict the academic performance of students. 
+- We are working with a real time data set of past 3 years student provided by the college to work on our innovative idea.
+- We have also implemented some feature engineering and statistical engineering techniques to make our model more reliable and accurate
+* Model Preview: [Click_here](https://drive.google.com/file/d/1AjNisqcdcrBn8IvSCZScMLQGdzQCtDzq/view?usp=sharing)
+## Tech Stack ⚙️
+
+[![Tech Stack](https://skillicons.dev/icons?i=react,express,mongodb,tailwind,flask)](https://skillicons.dev)
+
+
+
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+See `contributing.md` for ways to get started.
+
+
+
+## Authors
+
+- [@KunalSalunkhe12](https://github.com/KunalSalunkhe12)
+- [@Rishabh23122211](https://github.com/rishabh23122211)
+- [@AnujTiwari](https://github.com/anuj2077)
 
