@@ -36,3 +36,7 @@ See `contributing.md` for ways to get started.
 - [@KunalSalunkhe12](https://github.com/KunalSalunkhe12)
 - [@Rishabh23122211](https://github.com/rishabh23122211)
 - [@AnujTiwari](https://www.linkedin.com/in/anuj-tiwari-87bba7241/)
+
+## License
+
+[MIT License](LICENSE)
