@@ -22,7 +22,7 @@ The Student Progress Analyzer System is a project that aims to predict the acade
 - The system uses SVM(support vector machine) algorithm to predict the academic performance of students. 
 - We are working with a real time data set of past 3 years student provided by the college to work on our innovative idea.
 - We have also implemented some feature engineering and statistical engineering techniques to make our model more reliable and accurate
-* Model Preview: [Click_here](https://drive.google.com/file/d/1AjNisqcdcrBn8IvSCZScMLQGdzQCtDzq/view?usp=sharing)
+* Model Preview: [SPA_model](./Model/SPA_model.ipynb)
 ## Tech Stack ⚙️
 
 [![Tech Stack](https://skillicons.dev/icons?i=react,express,mongodb,tailwind,flask)](https://skillicons.dev)
