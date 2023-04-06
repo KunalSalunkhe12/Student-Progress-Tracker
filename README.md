@@ -6,7 +6,7 @@ Click to view 👇
 [![Screenshot of Student Progress Analyzer](https://drive.google.com/uc?id=1rMM4q3VWktdbB94ZqewDeMus4OyFDpiY)](https://student-progress-tracker.netlify.app/)
 
 
-The Student Performance Prediction System is a project that aims to predict the academic performance of students based on their marks and defaulter status. The system provides insights to the teacher on which students are slow, average or good performers so that they can focus on providing more attention and support to the students who need it the most.
+The Student Progress Analyzer System is a project that aims to predict the academic performance of students based on their marks and defaulter status. The system provides insights to the teacher on which students are slow, average or good performers so that they can focus on providing more attention and support to the students who need it the most.
 
 
 ## Features
@@ -33,7 +33,7 @@ The Student Performance Prediction System is a project that aims to predict the 
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-See `contributing.md` for ways to get started.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for ways to get started.
 
 
 
