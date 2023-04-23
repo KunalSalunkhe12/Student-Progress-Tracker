@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -50,4 +50,104 @@
 	</script>
 </body>
 
-</html>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SVM Model Deployment Testing</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      #container {
+        margin: 0 auto;
+        width: 50%;
+      }
+      h1 {
+        text-align: center;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+      label {
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      input[type="text"] {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+      input[type="button"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        margin-top: 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      input[type="button"]:hover {
+        background-color: #3e8e41;
+      }
+      #result {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1>SVM Model Deployment Testing</h1>
+      <form>
+        <label>Defaulter:</label>
+        <input type="text" id="Defaulter">
+        <label>DMBI_ESE:</label>
+        <input type="text" id="DMBI_ESE">
+        <label>WEBX_ESE:</label>
+        <input type="text" id="WEBX_ESE">
+        <label>DS_ESE:</label>
+        <input type="text" id="DS_ESE">
+        <label>WT_ESE:</label>
+        <input type="text" id="WT_ESE">
+        <label>GIT_ESE:</label>
+        <input type="text" id="GIT_ESE">
+        <label>SGPI_(GPA):</label>
+        <input type="text" id="SGPI_(GPA)">
+        <input type="button" value="Predict" onclick="predict()">
+      </form>
+      <p>Prediction: <span id="result"></span></p>
+    </div>
+    <script>
+      function predict() {
+        var xhr = new XMLHttpRequest();
+        var url = "/predict";
+        var data = JSON.stringify({
+          "Defaulter": document.getElementById("Defaulter").value,
+          "DMBI_ESE": document.getElementById("DMBI_ESE").value,
+          "WEBX_ESE": document.getElementById("WEBX_ESE").value,
+          "DS_ESE": document.getElementById("DS_ESE").value,
+          "WT_ESE": document.getElementById("WT_ESE").value,
+          "GIT_ESE": document.getElementById("GIT_ESE").value,
+          "SGPI_(GPA)": document.getElementById("SGPI_(GPA)").value
+        });
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            document.getElementById("result").innerHTML = xhr.responseText;
+          }
+        };
+        xhr.send(data);
+      }
+    </script>
+  </body>
