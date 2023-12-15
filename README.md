@@ -40,6 +40,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for ways to get started.
 ## Authors
 
 - [@KunalSalunkhe12](https://github.com/KunalSalunkhe12)
+- [@Saloni-FED](https://github.com/Saloni-FED)
 - [@Rishabh23122211](https://github.com/rishabh23122211)
 - [@AnujTiwari](https://github.com/anuj2077)
 
